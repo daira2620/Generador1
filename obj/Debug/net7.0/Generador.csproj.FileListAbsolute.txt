@@ -1,0 +1,14 @@
+B:\Generador\obj\Debug\net7.0\Generador.GeneratedMSBuildEditorConfig.editorconfig
+B:\Generador\obj\Debug\net7.0\Generador.AssemblyInfoInputs.cache
+B:\Generador\obj\Debug\net7.0\Generador.AssemblyInfo.cs
+B:\Generador\obj\Debug\net7.0\Generador.csproj.CoreCompileInputs.cache
+B:\Generador\bin\Debug\net7.0\Generador.exe
+B:\Generador\bin\Debug\net7.0\Generador.deps.json
+B:\Generador\bin\Debug\net7.0\Generador.runtimeconfig.json
+B:\Generador\bin\Debug\net7.0\Generador.dll
+B:\Generador\bin\Debug\net7.0\Generador.pdb
+B:\Generador\obj\Debug\net7.0\Generador.dll
+B:\Generador\obj\Debug\net7.0\refint\Generador.dll
+B:\Generador\obj\Debug\net7.0\Generador.pdb
+B:\Generador\obj\Debug\net7.0\Generador.genruntimeconfig.cache
+B:\Generador\obj\Debug\net7.0\ref\Generador.dll
