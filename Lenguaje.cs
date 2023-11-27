@@ -1,9 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Reflection.PortableExecutable;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+//Programar el Epsilon 
+//Programar el or
+// programar el else 
+
 
 
 
@@ -78,6 +83,7 @@ namespace Generador
             }
             else if (getClasificacion() == Tipos.Epsilon)
             {
+                 
                 match(Tipos.Epsilon);
                 string simbolo = getContenido();
                 if (esPalabraReservada(simbolo))
@@ -86,7 +92,7 @@ namespace Generador
                     generado.WriteLine("            if (getClasificacion() == Tipos."+simbolo+")");
                     generado.WriteLine("            {");
                     generado.WriteLine("                match(Tipos." + simbolo + ");");
-                
+
                 }
                 else
                 {
