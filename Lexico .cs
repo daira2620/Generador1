@@ -13,7 +13,7 @@ namespace Generador
 
         int[,] TRAND =
         { 
-            // WS,L,-,>,\,;,?,|,(,),Lam
+           // WS,L, -, >, \, ;, ?, |, (, ),Lam
             { 0, 1, 2,10, 4,10,10,10,10,10,10},
             { F, 1, F, F, F, F, F, F, F, F, F},
             { F, F, F, 3, F, F, F, F, F, F, F},
