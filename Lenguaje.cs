@@ -81,6 +81,7 @@ namespace Generador
                 match(Tipos.Epsilon);
                 match(Tipos.PIzq);
                                  
+               
                 string simbolo = getContenido();
                 if (esPalabraReservada(simbolo))
                 {
@@ -110,7 +111,7 @@ namespace Generador
             else if  (getClasificacion() == Tipos.Or)
             {
                 match(Tipos.Or);
-                match(Pizq);
+                match(Tipos.PIzq);
                 string simbolo = getContenido();
                 if (esPalabraReservada(simbolo))
                 {
@@ -118,7 +119,7 @@ namespace Generador
                     generado.WriteLine("            if (getClasificacion() == Tipos."+simbolo+")");
                     generado.WriteLine("            {");
                     generado.WriteLine("                match(Tipos." + simbolo + ");");
-                     generado.WriteLine("            }");
+                    generado.WriteLine("            }");
                    
                 }
                 else if (getClasificacion() == Tipos.ST)
@@ -228,7 +229,7 @@ namespace Generador
             }
         }
 
-        private void esPalabraReservada(string palabra)
+        private bool esPalabraReservada(string palabra)
         {
             switch (palabra)
             {
