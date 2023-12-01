@@ -60,8 +60,9 @@ namespace Generador
         }
         private void listaSimbolos()
         {
-            
-            if (esPalabraReservada(simbolo))
+          
+          // if (esPalabraReservada(simbolo))
+        if (esPalabraReservada(getContenido()))
             {
                 generado.WriteLine("            match(Tipos." + getContenido() + ");");
                 match(Tipos.SNT);
@@ -147,6 +148,7 @@ namespace Generador
         }
         private void ListaEpsilon()
         {
+            string simbolo=getContenido();
             if (esPalabraReservada(simbolo))
             {
                 generado.WriteLine("            match(Tipos." + getContenido() + ");");
