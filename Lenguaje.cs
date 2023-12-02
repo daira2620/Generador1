@@ -60,8 +60,7 @@ namespace Generador
         }
         private void listaSimbolos()
         {
-          
-          // if (esPalabraReservada(simbolo))
+
         if (esPalabraReservada(getContenido()))
             {
                 generado.WriteLine("            match(Tipos." + getContenido() + ");");
@@ -103,7 +102,7 @@ namespace Generador
                 }
                 else
                 {
-                  throw new Error("De sintaxis, debe <" + getContenido() + "> debe ser un ST o Palabra Reservada", log, linea, columna);
+                  throw new Error("sintaxis, debe <" + getContenido() + "> debe ser un ST o Palabra Reservada", log, linea, columna);
                 }
                 generado.WriteLine("            }");
                 match(Tipos.PDer);
@@ -209,8 +208,6 @@ namespace Generador
                  generado.WriteLine("            }");
                }
 
-                //generado.WriteLine("            match(\"" + getContenido() + "\");");
-                
             }
             else if (getClasificacion() == Tipos.SNT)
             {
@@ -221,7 +218,7 @@ namespace Generador
                  generado.WriteLine("            }");
                 if(getClasificacion() != Tipos.PDer)
                 {
-                    throw new Error("de sintaxis, <" + getContenido() + "> se espera un parentesis \\)", log, linea, columna);
+                    throw new Error("Sintaxis, <" + getContenido() + "> se espera un parentesis \\)", log, linea, columna);
                 }
             }
             if(getClasificacion() != Tipos.PDer)
