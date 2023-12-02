@@ -149,7 +149,7 @@ namespace Generador
         private void ListaEpsilon()
         {
             string simbolo=getContenido();
-            if (esPalabraReservada(simbolo))
+            if (esPalabraReservada(getContenido()))
             {
                 generado.WriteLine("            match(Tipos." + getContenido() + ");");
                 match(Tipos.SNT);
@@ -205,7 +205,7 @@ namespace Generador
                     
                  generado.WriteLine("            else if (getContenido() == \""+simbolo+"\")");
                  generado.WriteLine("            {");
-                 generado.WriteLine("                match(\"" + simbolo + "\");");
+                generado.WriteLine("                match(\"" + simbolo + "\");");
                  generado.WriteLine("            }");
                }
 
@@ -217,7 +217,7 @@ namespace Generador
                 match(Tipos.SNT);
                  generado.WriteLine("              else");
                  generado.WriteLine("            {");
-                 generado.WriteLine("                match(\"" + simbolo + "\");");
+                 generado.WriteLine("           "+simbolo+"();");
                  generado.WriteLine("            }");
                 if(getClasificacion() != Tipos.PDer)
                 {
