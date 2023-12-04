@@ -80,16 +80,16 @@ namespace Generador
             {
                 match(Tipos.Epsilon);
                 match(Tipos.PIzq);
-                                 
-               
                 string simbolo = getContenido();
+
+
                 if (esPalabraReservada(simbolo))
                 {
                     match(Tipos.SNT);
                     generado.WriteLine("            if (getClasificacion() == Tipos."+simbolo+")");
                     generado.WriteLine("            {");
                     generado.WriteLine("                match(Tipos." + simbolo + ");");
-                    ListaEpsilon();
+                    Epsilon();
                    
                 }
                 else if (getClasificacion() == Tipos.ST)
@@ -98,11 +98,11 @@ namespace Generador
                     match(Tipos.ST);
                     generado.WriteLine("            {");
                     generado.WriteLine("                match(\"" + simbolo + "\");");
-                    ListaEpsilon();
+                    Epsilon();
                 }
                 else
                 {
-                  throw new Error("sintaxis, debe <" + getContenido() + "> debe ser un ST o Palabra Reservada", log, linea, columna);
+                  throw new Error("sintaxis, <" + getContenido() + "> debe ser un ST Palabra Reservada", log, linea, columna);
                 }
                 generado.WriteLine("            }");
                 match(Tipos.PDer);
@@ -132,7 +132,7 @@ namespace Generador
                 }
                 else
                 {
-                  throw new Error("De sintaxis, debe <" + getContenido() + "> debe ser un ST o Palabra Reservada", log, linea, columna);
+                  throw new Error("Sintaxis, <" + getContenido() + "> debe ser un ST o Palabra Reservada", log, linea, columna);
                 }
                 ListaOr();
                 match(Tipos.PDer);
@@ -145,90 +145,7 @@ namespace Generador
             }
 
         }
-        private void ListaEpsilon()
-        {
-            string simbolo=getContenido();
-            if (esPalabraReservada(getContenido()))
-            {
-                generado.WriteLine("            match(Tipos." + getContenido() + ");");
-                match(Tipos.SNT);
-            }
-            else if (getClasificacion() == Tipos.ST)
-            {
-                generado.WriteLine("            match(\"" + getContenido() + "\");");
-                match(Tipos.ST);
-            }
-            else if (getClasificacion() == Tipos.SNT)
-            {
-                generado.WriteLine("            " + getContenido() + "();");
-                match(Tipos.SNT);
-            }
-            if(getClasificacion() != Tipos.PDer)
-            {
-                ListaEpsilon();
-
-            }
-
-        }
-        private void ListaOr()
-        {
-           string simbolo=getContenido();
-
-           if (esPalabraReservada(simbolo))
-            {
-                match(Tipos.SNT);
-                if(getClasificacion()==Tipos.PDer)
-                {
-                  generado.WriteLine("              else");
-                  generado.WriteLine("            match(Tipos." + getContenido() + ");");
-                }
-                else
-                {
-                  generado.WriteLine("            else if (getClasificacion() == Tipos."+simbolo+")");  
-                }
-                
-                
-            }
-            else if (getClasificacion() == Tipos.ST)
-            {
-                match(Tipos.ST);
-                if(getClasificacion()==Tipos.PDer)
-                {
-                  generado.WriteLine("              else");
-                   generado.WriteLine("            {");
-                  generado.WriteLine("                match(\"" + simbolo + "\");");
-                    generado.WriteLine("            }");
-                }
-                else
-                {
-                    
-                 generado.WriteLine("            else if (getContenido() == \""+simbolo+"\")");
-                 generado.WriteLine("            {");
-                generado.WriteLine("                match(\"" + simbolo + "\");");
-                 generado.WriteLine("            }");
-               }
-
-            }
-            else if (getClasificacion() == Tipos.SNT)
-            {
-                match(Tipos.SNT);
-                 generado.WriteLine("              else");
-                 generado.WriteLine("            {");
-                 generado.WriteLine("           "+simbolo+"();");
-                 generado.WriteLine("            }");
-                if(getClasificacion() != Tipos.PDer)
-                {
-                    throw new Error("Sintaxis, <" + getContenido() + "> se espera un parentesis \\)", log, linea, columna);
-                }
-            }
-            if(getClasificacion() != Tipos.PDer)
-            {
-                ListaOr();
-
-            }
-        }
-
-        private bool esPalabraReservada(string palabra)
+         private bool esPalabraReservada(string palabra)
         {
             switch (palabra)
             {
@@ -256,6 +173,91 @@ namespace Generador
             }
             return false;
         }
-  
+
+        // Epsilon
+        private void Epsilon()
+        {
+            string simbolo=getContenido();
+
+            if (esPalabraReservada(getContenido()))
+            {
+                generado.WriteLine("            match(Tipos." + getContenido() + ");");
+                match(Tipos.SNT);
+            }
+            else if (getClasificacion() == Tipos.ST)
+            {
+                generado.WriteLine("            match(\"" + getContenido() + "\");");
+                match(Tipos.ST);
+            }
+            else if (getClasificacion() == Tipos.SNT)
+            {
+                generado.WriteLine("            " + getContenido() + "();");
+                match(Tipos.SNT);
+            }
+            if(getClasificacion() != Tipos.PDer)
+            {
+                Epsilon();
+            }
+
+        }
+        // Or
+        private void ListaOr()
+        {
+           string simbolo=getContenido();
+
+           if (esPalabraReservada(simbolo))
+            {
+                match(Tipos.SNT);
+                if(getClasificacion()==Tipos.PDer)
+                {
+                  generado.WriteLine("             else");
+                  generado.WriteLine("            match(Tipos." + getContenido() + ");");
+                }
+                else
+                {
+                  generado.WriteLine("            else if (getClasificacion() == Tipos."+simbolo+")");  
+                }
+                
+                
+            }
+            else if (getClasificacion() == Tipos.ST)
+            {
+                match(Tipos.ST);
+                if(getClasificacion()==Tipos.PDer)
+                {
+                 generado.WriteLine("              else");
+                 generado.WriteLine("            {");
+                 generado.WriteLine("                match(\"" + simbolo + "\");");
+                 generado.WriteLine("            }");
+                }
+                else
+                {
+                    
+                 generado.WriteLine("            else if (getContenido() == \""+simbolo+"\")");
+                 generado.WriteLine("            {");
+                 generado.WriteLine("                match(\"" + simbolo + "\");");
+                 generado.WriteLine("            }");
+               }
+
+            }
+            else if (getClasificacion() == Tipos.SNT)
+            {
+                match(Tipos.SNT);
+                 generado.WriteLine("              else");
+                 generado.WriteLine("            {");
+                 generado.WriteLine("           "+simbolo+"();");
+                 generado.WriteLine("            }");
+                 
+                if(getClasificacion() != Tipos.PDer)
+                {
+                    throw new Error("Sintaxis, <" + getContenido() + "> se espera un parentesis \\)", log, linea, columna);
+                }
+            }
+            if(getClasificacion() != Tipos.PDer)
+            {
+                ListaOr();
+
+            }
+        }
     }
 }
