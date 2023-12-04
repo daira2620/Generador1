@@ -184,19 +184,20 @@ namespace Generador
                 generado.WriteLine("            match(Tipos." + getContenido() + ");");
                 match(Tipos.SNT);
             }
-            else if (getClasificacion() == Tipos.ST)
-            {
-                generado.WriteLine("            match(\"" + getContenido() + "\");");
-                match(Tipos.ST);
-            }
             else if (getClasificacion() == Tipos.SNT)
             {
-                generado.WriteLine("            " + getContenido() + "();");
+                generado.WriteLine("                " + getContenido() + "();");
                 match(Tipos.SNT);
             }
+            else if (getClasificacion() == Tipos.ST)
+            {
+                generado.WriteLine("                match(\"" + getContenido() + "\");");
+                match(Tipos.ST);
+            }
+            
             if(getClasificacion() != Tipos.PDer)
             {
-                Epsilon();
+                Epsilon(); 
             }
 
         }
@@ -211,7 +212,7 @@ namespace Generador
                 if(getClasificacion()==Tipos.PDer)
                 {
                   generado.WriteLine("          else");
-                  generado.WriteLine("            match(Tipos." + getContenido() + ");");
+                  generado.WriteLine("               match(Tipos." + getContenido() + ");");
                 }
                 else
                 {
@@ -222,6 +223,7 @@ namespace Generador
             }
             else if (getClasificacion() == Tipos.ST)
             {
+
                 match(Tipos.ST);
                 if(getClasificacion()==Tipos.PDer)
                 {
@@ -230,10 +232,11 @@ namespace Generador
                  generado.WriteLine("                match(\"" + simbolo + "\");");
                  generado.WriteLine("            }");
                 }
+
                 else
                 {
                     
-                 generado.WriteLine("            else if (getContenido() == \""+simbolo+"\")");
+                 generado.WriteLine("            else if (getContenido() == \""+ simbolo +"\")");
                  generado.WriteLine("            {");
                  generado.WriteLine("                match(\"" + simbolo + "\");");
                  generado.WriteLine("            }");
@@ -245,12 +248,12 @@ namespace Generador
                 match(Tipos.SNT);
                  generado.WriteLine("           else");
                  generado.WriteLine("            {");
-                 generado.WriteLine("                "+simbolo+"();");
+                 generado.WriteLine("                "+ simbolo + "();");
                  generado.WriteLine("            }");
 
                 if(getClasificacion() != Tipos.PDer)
                 {
-                    throw new Error("Sintaxis, <" + getContenido() + "> se espera un parentesis \\)", log, linea, columna);
+                    throw new Error("Sintaxis, <" + getContenido() + "> se espera parentesis  \\)", log, linea, columna);
                 }
             }
             if(getClasificacion() != Tipos.PDer)
