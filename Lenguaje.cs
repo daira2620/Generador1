@@ -210,12 +210,12 @@ namespace Generador
                 match(Tipos.SNT);
                 if(getClasificacion()==Tipos.PDer)
                 {
-                  generado.WriteLine("             else");
+                  generado.WriteLine("          else");
                   generado.WriteLine("            match(Tipos." + getContenido() + ");");
                 }
                 else
                 {
-                  generado.WriteLine("            else if (getClasificacion() == Tipos."+simbolo+")");  
+                  generado.WriteLine("          else if (getClasificacion() == Tipos."+simbolo+")");  
                 }
                 
                 
@@ -225,7 +225,7 @@ namespace Generador
                 match(Tipos.ST);
                 if(getClasificacion()==Tipos.PDer)
                 {
-                 generado.WriteLine("              else");
+                 generado.WriteLine("           else");
                  generado.WriteLine("            {");
                  generado.WriteLine("                match(\"" + simbolo + "\");");
                  generado.WriteLine("            }");
@@ -243,11 +243,11 @@ namespace Generador
             else if (getClasificacion() == Tipos.SNT)
             {
                 match(Tipos.SNT);
-                 generado.WriteLine("              else");
+                 generado.WriteLine("           else");
                  generado.WriteLine("            {");
-                 generado.WriteLine("           "+simbolo+"();");
+                 generado.WriteLine("                "+simbolo+"();");
                  generado.WriteLine("            }");
-                 
+
                 if(getClasificacion() != Tipos.PDer)
                 {
                     throw new Error("Sintaxis, <" + getContenido() + "> se espera un parentesis \\)", log, linea, columna);
